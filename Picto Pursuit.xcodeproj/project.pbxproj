@@ -14,6 +14,7 @@
 		0838F9C12B9C2ECC00731343 /* DrawingCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0838F9C02B9C2ECC00731343 /* DrawingCanvas.swift */; };
 		0838F9C32B9C36D100731343 /* GameBoardDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0838F9C22B9C36D100731343 /* GameBoardDrawing.swift */; };
 		0838F9C52B9C3D2A00731343 /* DrawingBoardText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0838F9C42B9C3D2A00731343 /* DrawingBoardText.swift */; };
+		0838F9C72B9C459D00731343 /* JoinRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0838F9C62B9C459D00731343 /* JoinRoom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		0838F9C02B9C2ECC00731343 /* DrawingCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvas.swift; sourceTree = "<group>"; };
 		0838F9C22B9C36D100731343 /* GameBoardDrawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardDrawing.swift; sourceTree = "<group>"; };
 		0838F9C42B9C3D2A00731343 /* DrawingBoardText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoardText.swift; sourceTree = "<group>"; };
+		0838F9C62B9C459D00731343 /* JoinRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoom.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				0838F9B22B9C2E7800731343 /* Picto_PursuitApp.swift */,
 				0838F9C02B9C2ECC00731343 /* DrawingCanvas.swift */,
 				0838F9C22B9C36D100731343 /* GameBoardDrawing.swift */,
+				0838F9C62B9C459D00731343 /* JoinRoom.swift */,
 				0838F9C42B9C3D2A00731343 /* DrawingBoardText.swift */,
 				0838F9B42B9C2E7800731343 /* ContentView.swift */,
 				0838F9B62B9C2E7900731343 /* Assets.xcassets */,
@@ -150,6 +153,7 @@
 				0838F9C12B9C2ECC00731343 /* DrawingCanvas.swift in Sources */,
 				0838F9B32B9C2E7800731343 /* Picto_PursuitApp.swift in Sources */,
 				0838F9C32B9C36D100731343 /* GameBoardDrawing.swift in Sources */,
+				0838F9C72B9C459D00731343 /* JoinRoom.swift in Sources */,
 				0838F9C52B9C3D2A00731343 /* DrawingBoardText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
