@@ -9,9 +9,15 @@ import SwiftUI
 
 struct GameBoardDrawing: View {
     @State private var isErasing = false
+    @Binding var roomCode: Int?
     
     var body: some View {
         VStack {
+            if let roomCode = roomCode {
+                           Text("Room Code: \(roomCode)")
+                               .font(.title)
+                               .padding(.bottom, 20)
+                       }
             ZStack {
                 DrawingCanvas(isErasing: $isErasing)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -42,5 +48,6 @@ struct GameBoardDrawing: View {
 }
 
 #Preview {
-    GameBoardDrawing()
+    GameBoardDrawing(roomCode: .constant(200000))
+
 }
