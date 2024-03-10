@@ -4,11 +4,12 @@
 //
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
-
 import SwiftUI
+
 struct ContentView: View {
-    @State private var isActive: Bool = false
     @State private var roomCode = randomNumberWith(digits: 6)
+    @State private var isJoinRoomActive = false
+    @State private var isGameBoardDrawingActive = false
     
     var body: some View {
         NavigationView {
@@ -22,19 +23,17 @@ struct ContentView: View {
                 
                 NavigationLink(
                     destination: GameBoardDrawing(roomCode: .constant(roomCode)),
-                    isActive: $isActive) {
+                    isActive: $isGameBoardDrawingActive) {
                     Text("Create Room")
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(8)
-                        
                 }
                 
-                Button(action: {
-                    roomCode = randomNumberWith(digits: 6)
-                    isActive = true
-                }) {
+                NavigationLink(
+                    destination: JoinRoom(),
+                    isActive: $isJoinRoomActive) {
                     Text("Join Room")
                         .padding()
                         .background(Color.blue)
