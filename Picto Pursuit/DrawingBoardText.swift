@@ -10,10 +10,14 @@ import SwiftUI
 struct DrawingBoardText: View {
     @State private var isErasing = false
     @State private var guess: String = ""
+    var roomCode: Int
     
     
     var body: some View {
         VStack {
+            Text("Room Code: \(roomCode)")
+                .font(.title)
+                .padding(.bottom, 20)
             ZStack {
                 DrawingCanvas(isErasing: $isErasing)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -48,7 +52,7 @@ struct DrawingBoardText: View {
 #if DEBUG
 struct DrawingBoardText_Previews: PreviewProvider {
     static var previews: some View {
-        DrawingBoardText()
+        DrawingBoardText(roomCode: 200000)
     }
 }
 #endif
