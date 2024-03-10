@@ -30,6 +30,9 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
+                .onAppear {
+                    regenerateRoomCode()
+                }
                 
                 NavigationLink(
                     destination: JoinRoom(),
@@ -47,6 +50,10 @@ struct ContentView: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
         }
+    }
+    
+    private func regenerateRoomCode() {
+        roomCode = randomNumberWith(digits: 6)
     }
 }
 

@@ -21,16 +21,17 @@ struct GameBoardDrawing: View {
             ZStack {
                 DrawingCanvas(isErasing: $isErasing)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                
+                    .padding(.all,20)
+
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.blue, lineWidth: 2)
-                    .padding(20)
+                    .padding(.all, 20)
                     .opacity(0.5)
                     .allowsHitTesting(false)
             }
             
             HStack {
-                Spacer()
+
                 
                 Button(action: {
                     isErasing.toggle()
