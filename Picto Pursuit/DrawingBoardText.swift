@@ -19,7 +19,7 @@ struct DrawingBoardText: View {
                 .font(.title)
                 .padding(.bottom, 20)
             ZStack {
-                DrawingCanvas(isErasing: $isErasing)
+                DrawingCanvas(isErasing: $isErasing, drawingData: $webSocketManager.receivedData, webSocketManager: webSocketManager)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .disabled(true) // Disable DrawingCanvas
                 

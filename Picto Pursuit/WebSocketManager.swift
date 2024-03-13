@@ -1,5 +1,5 @@
 //
-//  WebsSocketManager.swift
+//  WebSocketManager.swift
 //  Picto Pursuit
 //
 //  Created by Taranjeet Singh Bedi on 13/03/24.
@@ -13,12 +13,13 @@ class WebSocketManager: ObservableObject {
     // Reference to DrawingCanvas
     var drawingCanvas: DrawingCanvas?
     
+    // Published property to store received data
     @Published var receivedData: Data?
-       
-       init() {
-           establishWebSocketConnection()
-           receiveDrawingData()
-       }
+    
+    init() {
+        establishWebSocketConnection()
+        receiveDrawingData()
+    }
     
     func establishWebSocketConnection() {
         guard let url = URL(string: "wss://free.blr2.piesocket.com/v3/1?api_key=XkJLUWd8cNLjXdIM8zng4scrdJi0DiT6Es3D3Rjb") else {
@@ -49,29 +50,29 @@ class WebSocketManager: ObservableObject {
     
     // Method to receive drawing data over WebSocket
     func receiveDrawingData() {
-            guard let webSocketTask = webSocketTask else {
-                print("WebSocket task is not initialized.")
-                return
-            }
-            
-            webSocketTask.receive { [weak self] result in
-                switch result {
-                case .success(let message):
-                    DispatchQueue.main.async {
-                        switch message {
-                        case .data(let data):
-                            // Store received data
-                            self?.receivedData = data
-                        default:
-                            print("Received unsupported message type.")
-                        }
+        guard let webSocketTask = webSocketTask else {
+            print("WebSocket task is not initialized.")
+            return
+        }
+        
+        webSocketTask.receive { [weak self] result in
+            switch result {
+            case .success(let message):
+                DispatchQueue.main.async {
+                    switch message {
+                    case .data(let data):
+                        // Store received data
+                        self?.receivedData = data
+                    default:
+                        print("Received unsupported message type.")
                     }
-                    // Continue listening for drawing data
-                    self?.receiveDrawingData()
-                case .failure(let error):
-                    // Handle error
-                    print("WebSocket error: \(error)")
                 }
+                // Continue listening for drawing data
+                self?.receiveDrawingData()
+            case .failure(let error):
+                // Handle error
+                print("WebSocket error: \(error)")
             }
         }
+    }
 }
