@@ -4,14 +4,15 @@
 //
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
-
 import SwiftUI
-
 struct GameBoardDrawing: View {
     @State private var isErasing = false
     @Binding var roomCode: Int?
     
     @StateObject private var webSocketManager = WebSocketManager()
+    
+    // State variable to hold drawing data
+    @State private var drawingData: Data?
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct GameBoardDrawing: View {
             }
             Text("To Draw : Cat")
             ZStack {
-                DrawingCanvas(isErasing: $isErasing)
+                DrawingCanvas(isErasing: $isErasing, drawingData: $drawingData, webSocketManager: webSocketManager)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.all, 20)
 
@@ -45,11 +46,11 @@ struct GameBoardDrawing: View {
                 }
                 Button(action: {
                     // Get drawing data from canvas and send it
-                    guard let drawingData = webSocketManager.drawingCanvas?.canvasView.drawing.dataRepresentation() else {
-                        print("Error getting drawing data: Canvas is empty")
+                    guard let data = drawingData else {
+                        print("No drawing data available")
                         return
                     }
-                    webSocketManager.sendDrawingData(data: drawingData)
+                    webSocketManager.sendDrawingData(data: data)
                 }) {
                     Text("Send Drawing")
                         .padding()
@@ -62,6 +63,8 @@ struct GameBoardDrawing: View {
         }
     }
 }
+
+
 
 struct GameBoardDrawing_Previews: PreviewProvider {
     static var previews: some View {
