@@ -4,6 +4,12 @@
 //
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
+//
+//  Drawing_Canvas.swift
+//  Picto Pursuit
+//
+//  Created by Taranjeet Singh Bedi on 09/03/24.
+//
 import SwiftUI
 import PencilKit
 
@@ -25,10 +31,17 @@ struct DrawingCanvas: UIViewRepresentable {
         }
     }
     
-    static func dismantleUIView(_ uiView: PKCanvasView, coordinator: ()) {
-        uiView.drawing = PKDrawing()
+    // Method to update drawing with received data
+    func updateDrawing(with data: Data) {
+        do {
+            let drawing = try PKDrawing(data: data)
+            canvasView.drawing = drawing
+        } catch {
+            print("Error updating drawing: \(error)")
+        }
     }
 }
+
 
 struct DrawingCanvas_Previews: PreviewProvider {
     static var previews: some View {

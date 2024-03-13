@@ -4,14 +4,14 @@
 //
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
-
 import SwiftUI
+import Combine
 
 struct DrawingBoardText: View {
     @State private var isErasing = false
     @State private var guess: String = ""
+    @StateObject private var webSocketManager = WebSocketManager()
     var roomCode: Int
-    
     
     var body: some View {
         VStack {
@@ -38,6 +38,7 @@ struct DrawingBoardText: View {
                 // Add action for submitting the guess
                 print("Submit button tapped with guess: \(guess)")
             }) {
+                
                 Text("Submit")
                     .padding()
                     .background(Color.blue)
@@ -45,6 +46,10 @@ struct DrawingBoardText: View {
                     .cornerRadius(8)
             }
             .padding()
+            
+            if let receivedData = webSocketManager.receivedData{
+                Text("Received Data: \(String(describing: webSocketManager.receivedData))")
+            }
         }
     }
 }
