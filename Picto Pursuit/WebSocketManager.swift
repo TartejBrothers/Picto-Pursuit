@@ -22,7 +22,6 @@ class WebSocketManager: ObservableObject {
         
         webSocketTask?.resume()
         
-
         receiveDrawingData()
     }
     
@@ -60,10 +59,6 @@ class WebSocketManager: ObservableObject {
                         if let data = Data(base64Encoded: base64String) {
                             // Store received data
                             self?.receivedData = data
-                            // Print the received data
-                            if let receivedString = String(data: data, encoding: .utf8) {
-                                print("Received Drawing Data: \(receivedString)")
-                            }
                         } else {
                             print("Error decoding Base64 string")
                         }
