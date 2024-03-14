@@ -22,7 +22,7 @@ class WebSocketManager: ObservableObject {
         
         webSocketTask?.resume()
         
-        // Start receiving data
+
         receiveDrawingData()
     }
     
@@ -33,7 +33,9 @@ class WebSocketManager: ObservableObject {
             return
         }
         
-        let message = URLSessionWebSocketTask.Message.data(data)
+        let base64String = data.base64EncodedString()
+        let message = URLSessionWebSocketTask.Message.string(base64String)
+        
         webSocketTask.send(message) { error in
             if let error = error {
                 print("Error sending drawing data: \(error)")
@@ -53,9 +55,18 @@ class WebSocketManager: ObservableObject {
             case .success(let message):
                 DispatchQueue.main.async {
                     switch message {
-                    case .data(let data):
-                        // Store received data
-                        self?.receivedData = data
+                    case .string(let base64String):
+                        // Convert Base64 string back to Data
+                        if let data = Data(base64Encoded: base64String) {
+                            // Store received data
+                            self?.receivedData = data
+                            // Print the received data
+                            if let receivedString = String(data: data, encoding: .utf8) {
+                                print("Received Drawing Data: \(receivedString)")
+                            }
+                        } else {
+                            print("Error decoding Base64 string")
+                        }
                     default:
                         print("Received unsupported message type.")
                     }
