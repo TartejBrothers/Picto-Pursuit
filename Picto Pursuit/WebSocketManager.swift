@@ -1,24 +1,14 @@
-//
-//  WebSocketManager.swift
-//  Picto Pursuit
-//
-//  Created by Taranjeet Singh Bedi on 13/03/24.
-//
 import Combine
 import Foundation
 
 class WebSocketManager: ObservableObject {
     var webSocketTask: URLSessionWebSocketTask?
     
-    // Reference to DrawingCanvas
-    var drawingCanvas: DrawingCanvas?
-    
     // Published property to store received data
     @Published var receivedData: Data?
     
     init() {
         establishWebSocketConnection()
-        receiveDrawingData()
     }
     
     func establishWebSocketConnection() {
@@ -31,6 +21,9 @@ class WebSocketManager: ObservableObject {
         webSocketTask = session.webSocketTask(with: url)
         
         webSocketTask?.resume()
+        
+        // Start receiving data
+        receiveDrawingData()
     }
     
     // Method to send drawing data over WebSocket

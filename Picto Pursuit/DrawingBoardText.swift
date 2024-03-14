@@ -4,6 +4,7 @@
 //
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
+
 import SwiftUI
 import Combine
 
@@ -38,7 +39,6 @@ struct DrawingBoardText: View {
                 // Add action for submitting the guess
                 print("Submit button tapped with guess: \(guess)")
             }) {
-                
                 Text("Submit")
                     .padding()
                     .background(Color.blue)
@@ -47,8 +47,8 @@ struct DrawingBoardText: View {
             }
             .padding()
             
-            if let receivedData = webSocketManager.receivedData{
-                Text("Received Data: \(String(describing: webSocketManager.receivedData))")
+            if let receivedData = webSocketManager.receivedData {
+                Text("Received Data: \(String(describing: receivedData))")
             }
         }
     }

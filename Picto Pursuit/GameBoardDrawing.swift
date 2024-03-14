@@ -5,6 +5,7 @@
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
 import SwiftUI
+
 struct GameBoardDrawing: View {
     @State private var isErasing = false
     @Binding var roomCode: Int?
@@ -46,11 +47,12 @@ struct GameBoardDrawing: View {
                 }
                 Button(action: {
                     // Get drawing data from canvas and send it
-                    guard let data = drawingData else {
-                        print("No drawing data available")
-                        return
+                    if let drawingData = self.drawingData {
+                        webSocketManager.sendDrawingData(data: drawingData)
+                        print("Sent Drawing Data: \(drawingData)")
+                    } else {
+                        print("Error: No drawing data available")
                     }
-                    webSocketManager.sendDrawingData(data: data)
                 }) {
                     Text("Send Drawing")
                         .padding()
@@ -63,8 +65,6 @@ struct GameBoardDrawing: View {
         }
     }
 }
-
-
 
 struct GameBoardDrawing_Previews: PreviewProvider {
     static var previews: some View {

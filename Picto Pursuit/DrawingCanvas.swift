@@ -67,6 +67,8 @@ struct DrawingCanvas: UIViewRepresentable {
 
 
 
+
+
 struct DrawingCanvas_Previews: PreviewProvider {
     static var previews: some View {
         let isErasing = Binding.constant(false)
