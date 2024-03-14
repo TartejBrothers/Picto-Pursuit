@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct DrawingBoardText: View {
     @State private var isErasing = false
@@ -27,7 +26,6 @@ struct DrawingBoardText: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.blue, lineWidth: 2)
                     .padding(20)
-
                     .opacity(0.5)
                     .allowsHitTesting(false)
             }
@@ -54,6 +52,10 @@ struct DrawingBoardText: View {
         }
     }
 }
+
+
+
+
 
 #if DEBUG
 struct DrawingBoardText_Previews: PreviewProvider {
