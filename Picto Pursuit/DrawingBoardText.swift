@@ -27,6 +27,7 @@ struct DrawingBoardText: View {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Color.blue, lineWidth: 2)
                     .padding(20)
+
                     .opacity(0.5)
                     .allowsHitTesting(false)
             }
