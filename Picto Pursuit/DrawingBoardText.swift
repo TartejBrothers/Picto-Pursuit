@@ -56,7 +56,7 @@ struct DrawingBoardText: View {
                             .onAppear {
                                 // Subscribe to changes in receivedData
                                 dataManager.$receivedData.sink { receivedData in
-                                    print("Received data updated: \(receivedData)")
+                                    print("Received data updated: \(String(describing: receivedData))")
                                 }
                             }
                         }
