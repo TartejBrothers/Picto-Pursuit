@@ -22,28 +22,27 @@ class WebSocketManager: ObservableObject {
         
         webSocketTask?.resume()
         
-        receiveDrawingData()
+        receiveData()
     }
     
-    // Method to send drawing data over WebSocket
-    func sendDrawingData(data: Data) {
+    // Method to send data over WebSocket
+    func sendData(data: Data) {
         guard let webSocketTask = webSocketTask else {
             print("WebSocket task is not initialized.")
             return
         }
         
-        let base64String = data.base64EncodedString()
-        let message = URLSessionWebSocketTask.Message.string(base64String)
-        
-        webSocketTask.send(message) { error in
+        webSocketTask.send(.data(data)) { error in
             if let error = error {
-                print("Error sending drawing data: \(error)")
+                print("Error sending data: \(error)")
+            } else {
+                print("Data sent successfully.")
             }
         }
     }
     
-    // Method to receive drawing data over WebSocket
-    func receiveDrawingData() {
+    // Method to receive data over WebSocket
+    func receiveData() {
         guard let webSocketTask = webSocketTask else {
             print("WebSocket task is not initialized.")
             return
@@ -54,20 +53,14 @@ class WebSocketManager: ObservableObject {
             case .success(let message):
                 DispatchQueue.main.async {
                     switch message {
-                    case .string(let base64String):
-                        // Convert Base64 string back to Data
-                        if let data = Data(base64Encoded: base64String) {
-                            // Store received data
-                            self?.receivedData = data
-                        } else {
-                            print("Error decoding Base64 string")
-                        }
+                    case .data(let data):
+                        self?.receivedData = data
                     default:
                         print("Received unsupported message type.")
                     }
                 }
-                // Continue listening for drawing data
-                self?.receiveDrawingData()
+                // Continue listening for data
+                self?.receiveData()
             case .failure(let error):
                 // Handle error
                 print("WebSocket error: \(error)")

@@ -1,20 +1,8 @@
-//
-//  Drawing_Canvas.swift
-//  Picto Pursuit
-//
-//  Created by Taranjeet Singh Bedi on 09/03/24.
-//
-//
-//  Drawing_Canvas.swift
-//  Picto Pursuit
-//
-//  Created by Taranjeet Singh Bedi on 09/03/24.
-//
-
 import SwiftUI
 import PencilKit
 
 // Custom delegate to observe drawing changes
+
 class DrawingDelegate: NSObject, PKCanvasViewDelegate {
     var drawingChanged: ((PKDrawing) -> Void)?
     
@@ -23,13 +11,14 @@ class DrawingDelegate: NSObject, PKCanvasViewDelegate {
     }
 }
 
+
 struct DrawingCanvas: UIViewRepresentable {
     @Binding var isErasing: Bool
     @Binding var drawingData: Data?
     var canvasView = PKCanvasView()
     
-    // WebSocket connection
-    var webSocketManager: WebSocketManager
+    // DataManager instead of WebSocketManager
+    var dataManager: DataManager
     
     // Delegate to observe drawing changes
     private let delegate = DrawingDelegate()
@@ -64,17 +53,11 @@ struct DrawingCanvas: UIViewRepresentable {
         uiView.drawing = PKDrawing()
     }
 }
-
-
-
-
-
-
 struct DrawingCanvas_Previews: PreviewProvider {
     static var previews: some View {
         let isErasing = Binding.constant(false)
         let drawingData = Binding.constant(Data())
-        let webSocketManager = WebSocketManager()
+        let dataManager = DataManager(roomCode: 200000) // Initialize DataManager here
 
         // Convert non-optional Binding<Data> to optional Binding<Data?>
         let optionalDrawingData = Binding<Data?>(
@@ -84,7 +67,9 @@ struct DrawingCanvas_Previews: PreviewProvider {
             }
         )
 
-        return DrawingCanvas(isErasing: isErasing, drawingData: optionalDrawingData, webSocketManager: webSocketManager)
+        return DrawingCanvas(isErasing: isErasing, drawingData: optionalDrawingData, dataManager: dataManager) // Pass DataManager here
             .frame(width: 300, height: 300) // Adjust the frame size as needed
+            .environmentObject(dataManager) // Pass DataManager as an environment object
     }
 }
+
