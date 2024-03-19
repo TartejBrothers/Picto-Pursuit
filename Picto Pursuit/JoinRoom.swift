@@ -28,6 +28,7 @@ struct JoinRoom: View {
                 
                 if let roomCode = Int(inputCode) {
                     code = roomCode
+                    
                     isDrawingBoardActive = true
                 }
             }) {

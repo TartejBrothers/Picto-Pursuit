@@ -1,6 +1,5 @@
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 
 class DataManager: ObservableObject {
     private let db = Firestore.firestore()
@@ -14,8 +13,11 @@ class DataManager: ObservableObject {
     }
     
     public func sendData(data: Data) {
-        // Save the data in Firestore
-        db.collection("drawings").document("\(roomCode)").setData(["data": data]) { error in
+        // Convert data to base64 string
+        let base64String = data.base64EncodedString()
+        
+        // Save the base64 string in Firestore
+        db.collection("drawings").document("\(roomCode)").setData(["data": base64String]) { error in
             if let error = error {
                 print("Error sending data: \(error)")
             } else {
@@ -44,20 +46,20 @@ class DataManager: ObservableObject {
                         print("Document created successfully.")
                     }
                 }
-            } else {
-                // Print the entire snapshot data
-                print("Snapshot data: \(snapshot.data() ?? [:])")
-                
-                // Check if data field is present
-                if let drawingData = snapshot.data()?["data"] as? Data {
-                    // Update receivedData
+            } else if let base64String = snapshot.data()?["data"] as? String {
+                // Convert base64 string to data
+                if let decodedData = Data(base64Encoded: base64String) {
                     DispatchQueue.main.async {
-                        self?.receivedData = drawingData
+                        self?.receivedData = decodedData
+                        print("Received data size: \(decodedData.count) bytes")
+                        // Print the received data
+                        print("Received data: \(decodedData)")
                     }
-                    print("Received drawing data: \(drawingData)")
                 } else {
-                    print("No drawing data found.")
+                    print("Error decoding base64 string")
                 }
+            } else {
+                print("Document exists but does not contain any data.")
             }
         }
     }
