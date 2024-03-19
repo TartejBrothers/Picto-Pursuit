@@ -4,10 +4,11 @@
 //
 //  Created by Taranjeet Singh Bedi on 09/03/24.
 //
-import SwiftUI
 
+import SwiftUI
 struct ContentView: View {
     @State private var roomCode = randomNumberWith(digits: 6)
+    @StateObject private var dataManager = DataManager(roomCode: 200000) // Initialize DataManager
     @State private var isJoinRoomActive = false
     @State private var isGameBoardDrawingActive = false
     
@@ -22,7 +23,7 @@ struct ContentView: View {
                     .padding(.bottom, 20)
                 
                 NavigationLink(
-                    destination: GameBoardDrawing(roomCode: .constant(roomCode)),
+                    destination: GameBoardDrawing(roomCode: .constant(roomCode), dataManager: dataManager),
                     isActive: $isGameBoardDrawingActive) {
                     Text("Create Room")
                         .padding()
@@ -32,7 +33,7 @@ struct ContentView: View {
                 }
                 .onAppear {
                     regenerateRoomCode()
-                }
+                } 
                 
                 NavigationLink(
                     destination: JoinRoom(),
@@ -68,4 +69,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
